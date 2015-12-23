@@ -44,12 +44,12 @@ public class Main : MonoBehaviour {
 
     public void Action()
     {
-        if (this.carrying_carrot == null)
+        if (this.player.Touching() && this.carrying_carrot == null)
         {
             this.carrying_carrot = new RigidbodyObject("carrot");
             this.carrying_carrot.collider.enabled = false;
         }
-        else if (this.player.Touching() && this.carrying_carrot != null)
+        else if (this.carrying_carrot != null)
         {
             this.carrying_carrot.body.velocity = this.player.body.velocity + new Vector2(Player.horiz_throw * this.player.facing, Player.vert_throw);
             this.carrying_carrot.collider.enabled = true;

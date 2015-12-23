@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class RigidbodyBehavior : MonoBehaviour {
 
@@ -10,12 +9,19 @@ public class RigidbodyBehavior : MonoBehaviour {
         this.touching = false;
 	}
 
+    void OnCollisionEnter2D()
+    {
+        this.touching = true;
+    }
+
+    void OnCollisionExit2D(Collision2D collision_info)
+    {
+        this.touching = false;
+    }
+
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.contacts.Length > 0)
-            this.touching = true;
-        else
-            this.touching = false;
+        this.touching = true;
     }
 
 }

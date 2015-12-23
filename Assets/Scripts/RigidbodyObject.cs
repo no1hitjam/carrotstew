@@ -26,7 +26,6 @@ public class RigidbodyObject
     {
         return this.behavior.touching;
     }
-    
 
 }
 
