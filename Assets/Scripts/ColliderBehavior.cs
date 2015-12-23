@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RigidbodyBehavior : MonoBehaviour {
+public class ColliderBehavior : MonoBehaviour {
 
     public bool touching;
 

@@ -10,9 +10,9 @@ class Player : RigidbodyObject
     public const float jump = 7;
     
 
-    public Player (int x, int y) : base("player", x, y)
+    public Player (int x, int y) : base(SpriteObject.ColliderType.Polygon, "player", x, y)
     {
-        
+        this.body.freezeRotation = true;
     }
 
     public void MoveLeft()

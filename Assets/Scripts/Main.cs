@@ -11,6 +11,7 @@ public class Main : MonoBehaviour {
     private Player player;
     private RigidbodyObject carrying_carrot;
     private List<RigidbodyObject> carrots;
+    private List<SpriteObject> stems;
 
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,9 @@ public class Main : MonoBehaviour {
         this.player = new Player(1, 1);
         this.carrying_carrot = null;
         this.carrots = new List<RigidbodyObject>();
+        this.stems = new List<SpriteObject>();
+
+        this.AddStem();
     }
 	
 	// Update is called once per frame
@@ -42,9 +46,9 @@ public class Main : MonoBehaviour {
 
     public void Action()
     {
-        if (this.player.Touching() && this.carrying_carrot == null)
+        if (this.carrying_carrot == null)
         {
-            this.carrying_carrot = new RigidbodyObject("carrot");
+            this.carrying_carrot = new RigidbodyObject(SpriteObject.ColliderType.Polygon, "carrot");
             this.carrying_carrot.collider.enabled = false;
         }
         else if (this.carrying_carrot != null)
@@ -54,5 +58,16 @@ public class Main : MonoBehaviour {
             carrots.Add(this.carrying_carrot);
             this.carrying_carrot = null;
         }
+    }
+
+    private SpriteObject StemTouchingPlayer()
+    {
+
+    }
+
+    private void AddStem()
+    {
+        var stem = new SpriteObject(SpriteObject.ColliderType.Box, "stem", 0, -5);
+        stem.collider.isTrigger = true;
     }
 }
