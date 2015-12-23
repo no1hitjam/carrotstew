@@ -14,14 +14,12 @@ public class Main : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        var canvas = GameObject.Find("Canvas");
         this.left_button = GameObject.Find("Left Button").GetComponent<UIButtonInput>();
         this.right_button = GameObject.Find("Right Button").GetComponent<UIButtonInput>();
         this.jump_button = GameObject.Find("Jump Button").GetComponent<UIButtonInput>();
         this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();
 
         this.player = new Player(1, 1);
-        //this.player.game_object.transform.localScale = new Vector3(255, 255, 1);
         this.carrying_carrot = null;
         this.carrots = new List<RigidbodyObject>();
     }

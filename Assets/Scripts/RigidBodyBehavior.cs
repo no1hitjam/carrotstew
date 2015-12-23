@@ -14,12 +14,12 @@ public class RigidbodyBehavior : MonoBehaviour {
         this.touching = true;
     }
 
-    void OnCollisionExit2D(Collision2D collision_info)
+    void OnCollisionExit2D()
     {
         this.touching = false;
     }
 
-    void OnCollisionStay2D(Collision2D collisionInfo)
+    void OnCollisionStay2D()
     {
         this.touching = true;
     }
