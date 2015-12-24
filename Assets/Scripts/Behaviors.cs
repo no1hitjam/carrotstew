@@ -3,28 +3,33 @@ using System.Collections.Generic;
 
 class Behaviors
 {
-    public static SpriteBehavior BuildSpriteBehavior(SpriteBehavior.ColliderType collider_type, string sprite_path = "", int x = 0, int y = 0)
+    public static SpriteBehavior BuildSpriteBehavior(SpriteBehavior.ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
     {
         return InitializeSpriteBehavior(new GameObject().AddComponent<SpriteBehavior>(), collider_type, sprite_path, x, y);
     }
 
-    public static RigidbodyBehavior BuildRigidbodyBehavior(SpriteBehavior.ColliderType collider_type, string sprite_path = "", int x = 0, int y = 0)
+    public static RigidbodyBehavior BuildRigidbodyBehavior(SpriteBehavior.ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
     {
         return InitializeRigidbodyBehavior(new GameObject().AddComponent<RigidbodyBehavior>(), collider_type, sprite_path, x, y);
     }
 
-    public static PlayerBehavior BuildPlayerBehavior(int x = 0, int y = 0)
+    public static PlayerBehavior BuildPlayerBehavior(float x = 0, float y = 0)
     {
         return InitializePlayerBehavior(new GameObject().AddComponent<PlayerBehavior>(), x, y);
     }
 
-    public static StemBehavior BuildStemBehavior (int x = 0, int y = 0)
+    public static StemBehavior BuildStemBehavior (float x = 0, float y = 0)
     {
         return InitializeStemBehavior(new GameObject().AddComponent<StemBehavior>(), x, y);
     }
 
+    public static CarrotBehavior BuildCarrotBehavior(float x = 0, float y = 0)
+    {
+        return InitializeCarrotBehavior(new GameObject().AddComponent<CarrotBehavior>(), x, y);
+    }
 
-    private static SpriteBehavior InitializeSpriteBehavior(SpriteBehavior sprite_behavior, SpriteBehavior.ColliderType collider_type, string sprite_path = "", int x = 0, int y = 0)
+
+    private static SpriteBehavior InitializeSpriteBehavior(SpriteBehavior sprite_behavior, SpriteBehavior.ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
     {
         var game_object = sprite_behavior.gameObject;
 
@@ -50,25 +55,31 @@ class Behaviors
         return sprite_behavior;
     }
 
-    private static RigidbodyBehavior InitializeRigidbodyBehavior(RigidbodyBehavior rigidbody_behavior, SpriteBehavior.ColliderType collider_type, string sprite_path, int x, int y)
+    private static RigidbodyBehavior InitializeRigidbodyBehavior(RigidbodyBehavior behavior, SpriteBehavior.ColliderType collider_type, string sprite_path, float x, float y)
     {
-        InitializeSpriteBehavior(rigidbody_behavior, collider_type, sprite_path, x, y);
-        rigidbody_behavior.body = rigidbody_behavior.gameObject.AddComponent<Rigidbody2D>();
-        return rigidbody_behavior;
+        InitializeSpriteBehavior(behavior, collider_type, sprite_path, x, y);
+        behavior.body = behavior.gameObject.AddComponent<Rigidbody2D>();
+        return behavior;
     }
 
-    private static PlayerBehavior InitializePlayerBehavior(PlayerBehavior player_behavior, int x, int y)
+    private static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior, float x, float y)
     {
-        InitializeRigidbodyBehavior(player_behavior, SpriteBehavior.ColliderType.Polygon, "player", x, y);
-        player_behavior.touching_stems = new HashSet<GameObject>();
-        player_behavior.body.freezeRotation = true;
-        return player_behavior;
+        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player", x, y);
+        behavior.body.freezeRotation = true;
+        return behavior;
     }
 
-    private static StemBehavior InitializeStemBehavior(StemBehavior stem_behavior, int x, int y)
+    private static StemBehavior InitializeStemBehavior(StemBehavior behavior, float x, float y)
     {
-        InitializeSpriteBehavior(stem_behavior, SpriteBehavior.ColliderType.Box, "stem", x, y);
-        stem_behavior.touching_player = false;
-        return stem_behavior;
+        InitializeSpriteBehavior(behavior, SpriteBehavior.ColliderType.Box, "stem", x, y);
+        behavior.touching_player = false;
+        return behavior;
+    }
+
+    private static CarrotBehavior InitializeCarrotBehavior(CarrotBehavior behavior, float x, float y)
+    {
+        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "carrot", x, y);
+        behavior.touching_player = false;
+        return behavior;
     }
 }
