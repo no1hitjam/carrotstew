@@ -2,12 +2,12 @@
 
 public class RigidbodyBehavior : SpriteBehavior
 {
-    public Rigidbody2D body;
+    public Rigidbody2D rigid_body;
 
-    public static RigidbodyBehavior InitializeRigidbodyBehavior(RigidbodyBehavior behavior, SpriteBehavior.ColliderType collider_type, string sprite_path, float x, float y)
+    public static RigidbodyBehavior InitializeRigidbodyBehavior(RigidbodyBehavior behavior, SpriteBehavior.ColliderType collider_type, string sprite_path, float x = 0, float y = 0)
     {
         InitializeSpriteBehavior(behavior, collider_type, sprite_path, x, y);
-        behavior.body = behavior.gameObject.AddComponent<Rigidbody2D>();
+        behavior.rigid_body = behavior.gameObject.AddComponent<Rigidbody2D>();
         return behavior;
     }
 

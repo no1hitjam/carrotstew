@@ -13,9 +13,9 @@ class Behaviors
         return RigidbodyBehavior.InitializeRigidbodyBehavior(new GameObject().AddComponent<RigidbodyBehavior>(), collider_type, sprite_path, x, y);
     }
 
-    public static PlayerBehavior BuildPlayerBehavior(float x = 0, float y = 0)
+    public static PlayerBehavior BuildPlayerBehavior()
     {
-        return PlayerBehavior.InitializePlayerBehavior(new GameObject().AddComponent<PlayerBehavior>(), x, y);
+        return PlayerBehavior.InitializePlayerBehavior(new GameObject().AddComponent<PlayerBehavior>());
     }
 
     public static StemBehavior BuildStemBehavior (float x = 0, float y = 0)

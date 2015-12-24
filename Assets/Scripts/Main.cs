@@ -13,14 +13,17 @@ public class Main : MonoBehaviour {
     private List<CarrotBehavior> carrots;
     private List<StemBehavior> stems;
 
+    private GameObject main_camera;
+
 	// Use this for initialization
 	void Start () {
+        this.main_camera = GameObject.Find("Main Camera");
         this.left_button = GameObject.Find("Left Button").GetComponent<UIButtonInput>();
         this.right_button = GameObject.Find("Right Button").GetComponent<UIButtonInput>();
         this.jump_button = GameObject.Find("Jump Button").GetComponent<UIButtonInput>();
         this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();
 
-        this.player = Behaviors.BuildPlayerBehavior(1, 1);
+        this.player = Behaviors.BuildPlayerBehavior();
         this.carrying_carrot = null;
         this.carrots = new List<CarrotBehavior>();
         this.stems = new List<StemBehavior>();
@@ -43,6 +46,8 @@ public class Main : MonoBehaviour {
 
         if (this.carrying_carrot != null)
             this.carrying_carrot.gameObject.transform.position = this.player.gameObject.transform.position + new Vector3(0, 1f);
+
+        this.main_camera.transform.position = new Vector3(this.player.gameObject.transform.position.x, 0, -10);
     }
 
     public void Action()
@@ -75,7 +80,7 @@ public class Main : MonoBehaviour {
         {
             // throw carrot
             this.carrying_carrot.gameObject.transform.position += new Vector3(0, 1);
-            this.carrying_carrot.body.velocity = this.player.body.velocity + new Vector2(PlayerBehavior.horiz_throw * this.player.facing, PlayerBehavior.vert_throw);
+            this.carrying_carrot.rigid_body.velocity = this.player.rigid_body.velocity + new Vector2(PlayerBehavior.horiz_throw * this.player.facing, PlayerBehavior.vert_throw);
             this.carrying_carrot.collider2d.enabled = true;
             this.carrying_carrot.touching_player = false;
             this.player.touching_anything = false;

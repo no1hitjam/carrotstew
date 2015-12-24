@@ -10,11 +10,26 @@ class PlayerBehavior : RigidbodyBehavior
     public const float horiz_throw = 3;
     public const float jump = 7;
 
-    public static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior, float x, float y)
+    public static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior)
     {
-        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player", x, y);
-        behavior.body.freezeRotation = true;
+        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player");
+        behavior.rigid_body.freezeRotation = true;
+        behavior.ResetPosition();
         return behavior;
+    }
+
+    public void ResetPosition()
+    {
+        this.transform.position = new Vector3(1, 1);
+        this.rigid_body.velocity = new Vector2(0, 0);
+    }
+
+    void Update()
+    {
+        if (this.transform.position.y < -30)
+        {
+            this.ResetPosition();
+        }
     }
 
     public void MoveLeft()
@@ -35,7 +50,7 @@ class PlayerBehavior : RigidbodyBehavior
     {
         if (this.touching_anything)
         {
-            this.body.velocity = new Vector2(0, jump);
+            this.rigid_body.velocity = new Vector2(0, jump);
         }
     }
 
