@@ -10,16 +10,25 @@ class PlayerBehavior : RigidbodyBehavior
     public const float horiz_throw = 3;
     public const float jump = 7;
 
+    public static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior, float x, float y)
+    {
+        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player", x, y);
+        behavior.body.freezeRotation = true;
+        return behavior;
+    }
+
     public void MoveLeft()
     {
         this.gameObject.transform.position += new Vector3(-speed, 0);
         this.facing = -1;
+        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void MoveRight()
     {
         this.gameObject.transform.position += new Vector3(speed, 0);
         this.facing = 1;
+        this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
     }
 
     public void Jump()
