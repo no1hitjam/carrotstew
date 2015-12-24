@@ -8,10 +8,10 @@ public class Main : MonoBehaviour {
     private UIButtonInput jump_button;
     private UIButtonInput action_button;
 
-    private Player player;
-    private RigidbodyObject carrying_carrot;
-    private List<RigidbodyObject> carrots;
-    private List<SpriteObject> stems;
+    private PlayerBehavior player;
+    private RigidbodyBehavior carrying_carrot;
+    private List<RigidbodyBehavior> carrots;
+    private List<StemBehavior> stems;
 
 	// Use this for initialization
 	void Start () {
@@ -20,10 +20,10 @@ public class Main : MonoBehaviour {
         this.jump_button = GameObject.Find("Jump Button").GetComponent<UIButtonInput>();
         this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();
 
-        this.player = new Player(1, 1);
+        this.player = Behaviors.BuildPlayerBehavior(1, 1);
         this.carrying_carrot = null;
-        this.carrots = new List<RigidbodyObject>();
-        this.stems = new List<SpriteObject>();
+        this.carrots = new List<RigidbodyBehavior>();
+        this.stems = new List<StemBehavior>();
 
         this.AddStem();
     }
@@ -41,33 +41,45 @@ public class Main : MonoBehaviour {
             this.Action();
 
         if (this.carrying_carrot != null)
-            this.carrying_carrot.game_object.transform.position = this.player.game_object.transform.position + new Vector3(0, 1);
+            this.carrying_carrot.gameObject.transform.position = this.player.gameObject.transform.position + new Vector3(0, 1);
     }
 
     public void Action()
     {
-        if (this.carrying_carrot == null)
+        var touching_stem = this.FindStemTouchingPlayer();
+
+        if (this.carrying_carrot == null && touching_stem != null)
         {
-            this.carrying_carrot = new RigidbodyObject(SpriteObject.ColliderType.Polygon, "carrot");
-            this.carrying_carrot.collider.enabled = false;
+            this.carrying_carrot = Behaviors.BuildRigidbodyBehavior(SpriteBehavior.ColliderType.Polygon, "carrot");
+            this.carrying_carrot.collider2d.enabled = false;
+            stems.Remove(touching_stem);
+            Destroy(touching_stem.gameObject);
         }
         else if (this.carrying_carrot != null)
         {
-            this.carrying_carrot.body.velocity = this.player.body.velocity + new Vector2(Player.horiz_throw * this.player.facing, Player.vert_throw);
-            this.carrying_carrot.collider.enabled = true;
+            this.carrying_carrot.body.velocity = this.player.body.velocity + new Vector2(PlayerBehavior.horiz_throw * this.player.facing, PlayerBehavior.vert_throw);
+            this.carrying_carrot.collider2d.enabled = true;
             carrots.Add(this.carrying_carrot);
             this.carrying_carrot = null;
         }
     }
 
-    private SpriteObject StemTouchingPlayer()
+    private StemBehavior FindStemTouchingPlayer()
     {
-
+        foreach (var stem in this.stems)
+        {
+            if (stem.touching_player)
+            {
+                return stem;
+            }
+        }
+        return null;
     }
 
     private void AddStem()
     {
-        var stem = new SpriteObject(SpriteObject.ColliderType.Box, "stem", 0, -5);
-        stem.collider.isTrigger = true;
+        var stem = Behaviors.BuildStemBehavior(0, -5);//Behaviors.BuildSpriteBehavior(SpriteBehavior.ColliderType.Box, "stem", 0, -5);
+        stem.collider2d.isTrigger = true;
+        this.stems.Add(stem);
     }
 }
