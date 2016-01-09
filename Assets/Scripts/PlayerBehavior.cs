@@ -58,7 +58,14 @@ class PlayerBehavior : RigidbodyBehavior
         if (this.touching_anything)
         {
             this.rigid_body.velocity = new Vector2(0, jump);
+            this.sprite_renderer.sprite = this.sprites[1];
         }
+    }
+
+    void OnCollisionEnter2D()
+    {
+        this.touching_anything = true;
+        this.sprite_renderer.sprite = this.sprites[0];
     }
 
 }

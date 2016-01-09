@@ -20,17 +20,17 @@ public class Main : MonoBehaviour {
         this.main_camera = GameObject.Find("Main Camera");
 
         // mobile
-        this.left_button = GameObject.Find("Left Button").GetComponent<UIButtonInput>();
+        /*this.left_button = GameObject.Find("Left Button").GetComponent<UIButtonInput>();
         this.right_button = GameObject.Find("Right Button").GetComponent<UIButtonInput>();
         this.jump_button = GameObject.Find("Jump Button").GetComponent<UIButtonInput>();
-        this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();
+        this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();*/
         // end mobile
 
         // pc
-        /*this.left_button = new UIButtonInput();
+        this.left_button = new UIButtonInput();
         this.right_button = new UIButtonInput();
         this.jump_button = new UIButtonInput();
-        this.action_button = new UIButtonInput();*/
+        this.action_button = new UIButtonInput();
         // end pc
 
         this.player = PlayerBehavior.CreatePlayerBehavior();
