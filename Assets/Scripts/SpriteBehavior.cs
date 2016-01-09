@@ -14,7 +14,12 @@ public class SpriteBehavior : MonoBehaviour
     public SpriteRenderer sprite_renderer;
     public Collider2D collider2d;
 
-    public static SpriteBehavior InitializeSpriteBehavior(SpriteBehavior sprite_behavior, SpriteBehavior.ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
+    public static SpriteBehavior CreateSpriteBehavior(ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
+    {
+        return InitializeSpriteBehavior(new GameObject().AddComponent<SpriteBehavior>(), collider_type, sprite_path, x, y);
+    }
+
+    protected static SpriteBehavior InitializeSpriteBehavior(SpriteBehavior sprite_behavior, ColliderType collider_type, string sprite_path = "", float x = 0, float y = 0)
     {
         var game_object = sprite_behavior.gameObject;
 

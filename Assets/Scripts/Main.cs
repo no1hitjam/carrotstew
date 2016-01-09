@@ -18,12 +18,22 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         this.main_camera = GameObject.Find("Main Camera");
+
+        // mobile
         this.left_button = GameObject.Find("Left Button").GetComponent<UIButtonInput>();
         this.right_button = GameObject.Find("Right Button").GetComponent<UIButtonInput>();
         this.jump_button = GameObject.Find("Jump Button").GetComponent<UIButtonInput>();
         this.action_button = GameObject.Find("Action Button").GetComponent<UIButtonInput>();
+        // end mobile
 
-        this.player = Behaviors.BuildPlayerBehavior();
+        // pc
+        /*this.left_button = new UIButtonInput();
+        this.right_button = new UIButtonInput();
+        this.jump_button = new UIButtonInput();
+        this.action_button = new UIButtonInput();*/
+        // end pc
+
+        this.player = PlayerBehavior.CreatePlayerBehavior();
         this.carrying_carrot = null;
         this.carrots = new List<CarrotBehavior>();
         this.stems = new List<StemBehavior>();
@@ -69,7 +79,7 @@ public class Main : MonoBehaviour {
             else if (touching_stem != null)
             {
                 // stem
-                this.carrying_carrot = Behaviors.BuildCarrotBehavior();
+                this.carrying_carrot = CarrotBehavior.CreateCarrotBehavior();
                 this.carrying_carrot.collider2d.enabled = false;
                 this.stems.Remove(touching_stem);
                 Destroy(touching_stem.gameObject);
@@ -107,7 +117,7 @@ public class Main : MonoBehaviour {
 
     private void AddStem()
     {
-        var stem = Behaviors.BuildStemBehavior(Random.Range(-6, 6), -5);//Behaviors.BuildSpriteBehavior(SpriteBehavior.ColliderType.Box, "stem", 0, -5);
+        var stem = StemBehavior.CreateStemBehavior(Random.Range(-6, 6), -5);
         stem.collider2d.isTrigger = true;
         this.stems.Add(stem);
     }

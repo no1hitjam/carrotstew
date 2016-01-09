@@ -11,7 +11,12 @@ class PlayerBehavior : RigidbodyBehavior
     public const float jump = 7;
     public const float scale = .2f;
 
-    public static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior)
+    public static PlayerBehavior CreatePlayerBehavior()
+    {
+        return InitializePlayerBehavior(new GameObject().AddComponent<PlayerBehavior>());
+    }
+
+    protected static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior)
     {
         InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player");
         behavior.rigid_body.freezeRotation = true;

@@ -6,9 +6,14 @@ class CarrotBehavior : RigidbodyBehavior
 
     public bool touching_player;
 
-    public static CarrotBehavior InitializeCarrotBehavior(CarrotBehavior behavior, float x, float y)
+    public static CarrotBehavior CreateCarrotBehavior(float x = 0, float y = 0)
     {
-        InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "carrot", x, y);
+        return InitializeCarrotBehavior(new GameObject().AddComponent<CarrotBehavior>(), x, y);
+    }
+
+    protected static CarrotBehavior InitializeCarrotBehavior(CarrotBehavior behavior, float x, float y)
+    {
+        InitializeRigidbodyBehavior(behavior, ColliderType.Polygon, "carrot", x, y);
         behavior.touching_player = false;
         behavior.gameObject.transform.localScale = new Vector3(scale, scale);
         return behavior;
