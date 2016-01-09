@@ -8,6 +8,7 @@ class StemBehavior : SpriteBehavior
     {
         InitializeSpriteBehavior(behavior, SpriteBehavior.ColliderType.Box, "stem", x, y);
         behavior.touching_player = false;
+        behavior.gameObject.transform.localScale = new Vector3(CarrotBehavior.scale, CarrotBehavior.scale);
         return behavior;
     }
 

@@ -9,12 +9,14 @@ class PlayerBehavior : RigidbodyBehavior
     public const float vert_throw = 6;
     public const float horiz_throw = 3;
     public const float jump = 7;
+    public const float scale = .2f;
 
     public static PlayerBehavior InitializePlayerBehavior(PlayerBehavior behavior)
     {
         InitializeRigidbodyBehavior(behavior, SpriteBehavior.ColliderType.Polygon, "player");
         behavior.rigid_body.freezeRotation = true;
         behavior.ResetPosition();
+        behavior.gameObject.transform.localScale = new Vector3(scale, scale);
         return behavior;
     }
 
@@ -36,14 +38,14 @@ class PlayerBehavior : RigidbodyBehavior
     {
         this.gameObject.transform.position += new Vector3(-speed, 0);
         this.facing = -1;
-        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        this.gameObject.transform.localScale = new Vector3(scale, scale, 1);
     }
 
     public void MoveRight()
     {
         this.gameObject.transform.position += new Vector3(speed, 0);
         this.facing = 1;
-        this.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        this.gameObject.transform.localScale = new Vector3(-scale, scale, 1);
     }
 
     public void Jump()
